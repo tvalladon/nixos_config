@@ -3,7 +3,7 @@
 
   let 
     shellAliases = {
-      hm="~/.bin/hm";
+      nm="/home/.dotfiles/nm";
     };
   in {
 

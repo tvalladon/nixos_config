@@ -10,7 +10,7 @@ function debug {
     echo
 }
 
-function apply { ## Apply updates to System or User accounts < system | user username >
+function apply { ## Apply configuration changes for System or User accounts < system | user username >
     if [ $# -lt 1 ]; then echo 1>&2 "Usage: $0 $FUNCNAME < system | user username >";exit 3;fi
 
     if [ $1 = "system" ]; then
@@ -19,10 +19,29 @@ function apply { ## Apply updates to System or User accounts < system | user use
     fi
     
     if [ $1 = "user" ]; then
+        if [ $# -ne 2 ];then echo 1>&2 "Username is required for $0 $FUNCNAME $1";exit 3;fi
+        
         echo "Applying user level changes for user $2..."
 	sudo runuser -l $2 sh -c "cd /home/.dotfiles/users/$2 && home-manager switch -f home.nix"
     fi
 }
+
+function update { ## Apply updates to System or User accounts < system | user username >
+    if [ $# -lt 1 ]; then echo 1>&2 "Usage: $0 $FUNCNAME < system | user username >";exit 3;fi
+
+    if [ $1 = "system" ]; then
+        echo "Applying system updates..."
+        sudo nix-channel --update
+    fi
+    
+    if [ $1 = "user" ]; then
+        if [ $# -ne 2 ];then echo 1>&2 "Username is required for $0 $FUNCNAME $1";exit 3;fi
+
+        echo "Applying user level updates for user $2..."
+        sudo runuser -l $2 sh -c "nix-channel --update"
+    fi
+}
+
 
 function hm { ## Add, install or update home-manager for user < add username | install username | update username >
     if [ $# -ne 2 ]; then echo 1>&2 "Usage: $0 $FUNCNAME < add username | install username | update username >";exit 3;fi
@@ -38,6 +57,32 @@ function hm { ## Add, install or update home-manager for user < add username | i
         sudo runuser -l $2 sh -c "nix-shell '<home-manager>' -A install"
     fi
 }
+
+function edit { ## Edit the scripts or configurations in the nix-manager folder < nm | config | hardware | user username >
+    if [ $# -lt 1 ]; then echo 1>&2 "Usage: $0 $FUNCNAME < nm | config | hardware | user username >";exit 3;fi
+
+    if [ $1 = "nm" ]; then
+        sudo nix-shell -p vim git --run "vim /home/.dotfiles/nm"
+    fi
+
+    if [ $1 = "config" ]; then
+        sudo nix-shell -p vim git --run "vim /home/.dotfiles/system/configuration.nix"
+    fi
+
+    if [ $1 = "hardware" ]; then
+        sudo nix-shell -p vim git --run "vim /home/.dotfiles/system/hardware-configuration.nix"
+    fi
+    
+    if [ $1 = "user" ]; then
+        if [ $# -ne 2 ];then echo 1>&2 "Username is required for $0 $FUNCNAME $1";exit 3;fi
+
+        echo "Openeing up editor in user configuration directory for user $2..."
+        code /home/.dotfiles/users/$2
+    fi
+
+}
+
+
 
 function default {
     help
