@@ -6,15 +6,21 @@ let
 in
 {
   dconf.settings = {
+    "apps/seahorse/listing" = {
+      keyrings-selected = [ "secret-service:///org/freedesktop/secrets/collection/login" ];
+    };
+
     "org/gnome/control-center" = {
-      last-panel = "wifi";
+      last-panel = "keyboard";
     };
 
     "org/gnome/desktop/a11y/magnifier" = {
+      mag-factor = 7.0;
       mouse-tracking = "proportional";
     };
 
     "org/gnome/desktop/background" = {
+      picture-options = "zoom";
       picture-uri = "file:///home/developer/Pictures/hexagons-patterns-orange-background-orange-blocks-black-3840x2160-2287.png";
     };
 
@@ -25,7 +31,7 @@ in
     "org/gnome/desktop/input-sources" = {
       per-window = false;
       sources = [ (mkTuple [ "xkb" "us" ]) ];
-      xkb-options = [ "terminate:ctrl_alt_bksp" "lv3:ralt_switch" ];
+      xkb-options = [ "ctrl:swap_rwin_rctl" "ctrl:swap_lwin_lctl" "lv3:ralt_switch" ];
     };
 
     "org/gnome/desktop/interface" = {
@@ -43,8 +49,23 @@ in
       show-battery-percentage = true;
     };
 
+    "org/gnome/desktop/media-handling" = {
+      autorun-never = false;
+      autorun-x-content-ignore = [];
+      autorun-x-content-open-folder = [];
+      autorun-x-content-start-app = [ "x-content/ostree-repository" ];
+    };
+
     "org/gnome/desktop/notifications" = {
-      application-children = [ "org-gnome-nautilus" "gnome-network-panel" "firefox" ];
+      application-children = [ "org-gnome-nautilus" "gnome-network-panel" "firefox" "keybase" "code" ];
+    };
+
+    "org/gnome/desktop/notifications/application/brave-browser" = {
+      application-id = "brave-browser.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/code" = {
+      application-id = "code.desktop";
     };
 
     "org/gnome/desktop/notifications/application/firefox" = {
@@ -53,6 +74,10 @@ in
 
     "org/gnome/desktop/notifications/application/gnome-network-panel" = {
       application-id = "gnome-network-panel.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/keybase" = {
+      application-id = "keybase.desktop";
     };
 
     "org/gnome/desktop/notifications/application/org-gnome-nautilus" = {
@@ -64,7 +89,9 @@ in
     };
 
     "org/gnome/desktop/privacy" = {
+      disable-microphone = false;
       old-files-age = "uint32 7";
+      remember-recent-files = true;
       remove-old-temp-files = true;
       remove-old-trash-files = true;
     };
@@ -72,6 +99,7 @@ in
     "org/gnome/desktop/screensaver" = {
       lock-delay = "uint32 0";
       lock-enabled = false;
+      picture-uri = "file:///home/developer/Pictures/hexagons-patterns-orange-background-orange-blocks-black-3840x2160-2287.png";
     };
 
     "org/gnome/desktop/search-providers" = {
@@ -88,7 +116,39 @@ in
     };
 
     "org/gnome/desktop/wm/keybindings" = {
+      begin-move = [];
+      begin-resize = [];
+      close = [ "<Primary>q" ];
+      cycle-group = [ "<Primary>grave" ];
+      cycle-group-backward = [ "<Primary><Shift>grave" ];
+      cycle-panels = [];
+      cycle-panels-backward = [];
       maximize = [ "" ];
+      move-to-monitor-down = [];
+      move-to-monitor-left = [];
+      move-to-monitor-right = [];
+      move-to-monitor-up = [];
+      move-to-workspace-1 = [];
+      move-to-workspace-last = [];
+      move-to-workspace-left = [];
+      move-to-workspace-right = [];
+      panel-main-menu = [ "<Primary>space" ];
+      panel-run-dialog = [];
+      show-desktop = [ "<Primary>Up" ];
+      switch-applications = [ "<Primary>Tab" ];
+      switch-applications-backward = [ "<Primary><Shift>Tab" ];
+      switch-group = [];
+      switch-group-backward = [];
+      switch-input-source = [];
+      switch-input-source-backward = [];
+      switch-panels = [];
+      switch-panels-backward = [];
+      switch-to-workspace-1 = [];
+      switch-to-workspace-last = [];
+      switch-to-workspace-left = [];
+      switch-to-workspace-right = [];
+      toggle-maximized = [];
+      unmaximize = [];
     };
 
     "org/gnome/desktop/wm/preferences" = {
@@ -108,6 +168,11 @@ in
     "org/gnome/evolution-data-server" = {
       migrated = true;
       network-monitor-gio-name = "";
+    };
+
+    "org/gnome/file-roller/dialogs/extract" = {
+      recreate-folders = true;
+      skip-newer = false;
     };
 
     "org/gnome/file-roller/listing" = {
@@ -182,6 +247,30 @@ in
       ignore-phase2-ca-cert = false;
     };
 
+    "org/gnome/nm-applet/eap/ae78ee0b-85f9-4b7e-a579-a4a90f09a3ae" = {
+      ignore-ca-cert = false;
+      ignore-phase2-ca-cert = false;
+    };
+
+    "org/gnome/settings-daemon/plugins/media-keys" = {
+      area-screenshot = [ "<Primary><Shift>percent" ];
+      area-screenshot-clip = [];
+      decrease-text-size = [];
+      help = [];
+      increase-text-size = [];
+      logout = [];
+      magnifier = [];
+      magnifier-zoom-in = [];
+      magnifier-zoom-out = [];
+      screencast = [];
+      screenreader = [];
+      screensaver = [];
+      screenshot = [];
+      screenshot-clip = [];
+      window-screenshot = [];
+      window-screenshot-clip = [];
+    };
+
     "org/gnome/settings-daemon/plugins/power" = {
       idle-dim = false;
       sleep-inactive-ac-type = "nothing";
@@ -206,6 +295,13 @@ in
       sigma = 16;
     };
 
+    "org/gnome/shell/extensions/trayIconsReloaded" = {
+      icon-padding-horizontal = 0;
+      icon-size = 20;
+      icons-limit = 12;
+      tray-margin-left = 4;
+    };
+
     "org/gnome/shell/extensions/vertical-overview" = {
       override-dash = false;
       scaling-workspace-background = false;
@@ -215,6 +311,8 @@ in
     };
 
     "org/gnome/shell/keybindings" = {
+      focus-active-notification = [];
+      open-application-menu = [];
       switch-to-application-1 = [ "" ];
       switch-to-application-2 = [ "" ];
       switch-to-application-3 = [ "" ];
@@ -225,6 +323,7 @@ in
       switch-to-application-8 = [ "" ];
       switch-to-application-9 = [ "" ];
       toggle-application-view = [ "" ];
+      toggle-message-tray = [];
       toggle-overview = [ "" ];
     };
 
@@ -232,10 +331,18 @@ in
       locations = "@av []";
     };
 
+    "org/gnome/terminal/legacy/keybindings" = {
+      zoom-in = "<Primary>plus";
+    };
+
     "org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9" = {
       background-color = "rgb(46,52,54)";
+      custom-command = "fish";
+      exit-action = "close";
       foreground-color = "rgb(211,215,207)";
+      login-shell = false;
       palette = [ "rgb(7,54,66)" "rgb(220,50,47)" "rgb(133,153,0)" "rgb(181,137,0)" "rgb(38,139,210)" "rgb(211,54,130)" "rgb(42,161,152)" "rgb(238,232,213)" "rgb(0,43,54)" "rgb(203,75,22)" "rgb(88,110,117)" "rgb(101,123,131)" "rgb(131,148,150)" "rgb(108,113,196)" "rgb(147,161,161)" "rgb(253,246,227)" ];
+      use-custom-command = true;
       use-theme-colors = false;
     };
 

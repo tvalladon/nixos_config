@@ -10,6 +10,10 @@
     programs.fish = {
       inherit shellAliases;
       
+      shellInit = ''
+        theme_gruvbox dark medium
+      '';
+
       enable = true;
     };
   }

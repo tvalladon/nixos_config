@@ -13,6 +13,7 @@
   imports = [
     ./apps/dconf.nix
     ./apps/shell.nix
+    ./apps/tilda.nix
     ./apps/vscode.nix
     ./apps/neovim.nix
     ./apps/keybase.nix
