@@ -17,10 +17,10 @@ function apply { ## Apply configuration changes for System or User accounts < sy
         echo "Applying system changes..."
         sudo nixos-rebuild switch -I nixos-config=/home/.dotfiles/system/configuration.nix
     fi
-    
+
     if [ $1 = "user" ]; then
         if [ $# -ne 2 ];then echo 1>&2 "Username is required for $0 $FUNCNAME $1";exit 3;fi
-        
+
         echo "Applying user level changes for user $2..."
 	sudo runuser -l $2 sh -c "cd /home/.dotfiles/users/$2 && home-manager switch -f home.nix"
     fi
@@ -33,7 +33,7 @@ function update { ## Apply updates to System or User accounts < system | user us
         echo "Applying system updates..."
         sudo nix-channel --update
     fi
-    
+
     if [ $1 = "user" ]; then
         if [ $# -ne 2 ];then echo 1>&2 "Username is required for $0 $FUNCNAME $1";exit 3;fi
 
@@ -51,7 +51,7 @@ function hm { ## Add, install or update home-manager for user < add username | i
         sudo runuser -l $2 sh -c "nix-channel --add https://github.com/nix-community/home-manager/archive/release-21.05.tar.gz home-manager && nix-channel --update"
 	echo "Please logout and back in and then run $0 $FUNCNAME install $2"
     fi
-    
+
     if [ $1 = "install" ]; then
         echo "Installing home-manager channel for user $2"
         sudo runuser -l $2 sh -c "nix-shell '<home-manager>' -A install"
@@ -72,7 +72,7 @@ function edit { ## Edit the scripts or configurations in the nix-manager folder 
     if [ $1 = "hardware" ]; then
         sudo nix-shell -p vim git --run "vim /home/.dotfiles/system/hardware-configuration.nix"
     fi
-    
+
     if [ $1 = "user" ]; then
         if [ $# -ne 2 ];then echo 1>&2 "Username is required for $0 $FUNCNAME $1";exit 3;fi
 
@@ -81,8 +81,6 @@ function edit { ## Edit the scripts or configurations in the nix-manager folder 
     fi
 
 }
-
-
 
 function default {
     help

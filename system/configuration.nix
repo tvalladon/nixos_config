@@ -72,7 +72,7 @@
     isNormalUser = true;
     initialPassword = "Mouse123";
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    # shell = pkgs.zsh;
+#    shell = pkgs.zsh;
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -81,7 +81,6 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     wget
-    firefox
   ];
 
   programs.zsh.enable = true;

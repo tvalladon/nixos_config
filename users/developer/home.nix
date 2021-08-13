@@ -21,6 +21,7 @@
     ./apps/git-crypt.nix
     ./apps/gnupg.nix
     ./apps/slack.nix
+    ./apps/brave.nix
   ];
 
 
