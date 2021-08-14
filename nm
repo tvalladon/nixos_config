@@ -79,7 +79,23 @@ function edit { ## Edit the scripts or configurations in the nix-manager folder 
         echo "Openeing up editor in user configuration directory for user $2..."
         code /home/.dotfiles/users/$2
     fi
+}
 
+function cleanup { ## Run garbage collection for the system or specific user < nm | config | hardware | user username >
+    if [ $# -lt 1 ]; then echo 1>&2 "Usage: $0 $FUNCNAME < nm | config | hardware | user username >";exit 3;fi
+
+    if [ $1 = "system" ]; then
+        sudo rm /nix/var/nix/gcroots/auto/*
+        sudo nix-collect-garbage -d
+        sudo nix-store --optimise
+    fi
+
+    # if [ $1 = "user" ]; then
+    #     if [ $# -ne 2 ];then echo 1>&2 "Username is required for $0 $FUNCNAME $1";exit 3;fi
+
+    #     echo "Openeing up editor in user configuration directory for user $2..."
+    #     code /home/.dotfiles/users/$2
+    # fi
 }
 
 function default {
