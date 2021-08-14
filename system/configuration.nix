@@ -81,6 +81,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     wget
+    gh
   ];
 
   programs.zsh.enable = true;

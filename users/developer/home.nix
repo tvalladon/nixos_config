@@ -17,7 +17,7 @@
     ./apps/vscode.nix
     ./apps/neovim.nix
     ./apps/keybase.nix
-    ./apps/gh.nix
+    # ./apps/gh.nix
     ./apps/git.nix
     ./apps/git-crypt.nix
     ./apps/gnupg.nix
