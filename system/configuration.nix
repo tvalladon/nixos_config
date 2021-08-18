@@ -16,6 +16,7 @@
 
   networking.hostName = "nixwork"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  # networking.networkmanager.enable = true;  # Enables wireless support via network manager
 
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
@@ -44,10 +45,9 @@
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
-  
 
   # Configure keymap in X11
-  # services.xserver.layout = "us";
+  services.xserver.layout = "us";
   # services.xserver.xkbOptions = "eurosign:e";
 
   # Enable CUPS to print documents.
@@ -84,9 +84,9 @@
     gh
   ];
 
-  programs.zsh.enable = true;
+  # Enable flatpacks
+  services.flatpak.enable = true;
 
-  nixpkgs.config.firefox.enableGnomeExtensions = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
